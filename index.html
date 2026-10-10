@@ -1,1 +1,614 @@
 
+<!DOCTYPE html>
+<html lang="fr-DZ">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111111">
+
+  <title>SDL Streetwear | Collection officielle</title>
+  <meta name="description" content="Découvrez SDL Streetwear. Hoodies streetwear, style affirmé et livraison à domicile ou au bureau en Algérie.">
+  <meta name="robots" content="index, follow">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SDL Streetwear">
+  <meta property="og:title" content="SDL Streetwear | Collection officielle">
+  <meta property="og:description" content="Découvrez notre collection streetwear. Livraison en Algérie.">
+  <meta property="og:locale" content="fr_DZ">
+
+  <style>
+    :root {
+      --bg: #111111;
+      --panel: #1b1b1b;
+      --red: #ff3030;
+      --white: #ffffff;
+      --muted: #bbbbbb;
+      --border: #333333;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--white);
+      font-family: Arial, sans-serif;
+    }
+
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .announcement {
+      padding: 11px 8px;
+      background: var(--red);
+      color: var(--white);
+      text-align: center;
+      font-size: 10px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .language-bar {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 12px 18px 0;
+      font-size: 11px;
+    }
+
+    .language-bar a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    header {
+      padding: 24px 16px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-size: 36px;
+      font-weight: bold;
+      letter-spacing: 8px;
+    }
+
+    header > p {
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 4px;
+    }
+
+    .menu {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 20px;
+    }
+
+    .menu a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 2px;
+      transition: color 0.3s;
+    }
+
+    .menu a:hover {
+      color: var(--red);
+    }
+
+    .hero {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .label {
+      color: var(--red);
+      font-size: 12px;
+      letter-spacing: 3px;
+    }
+
+    h1 {
+      font-size: clamp(30px, 8vw, 48px);
+      line-height: 1.2;
+      letter-spacing: 1px;
+    }
+
+    .description {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .product-image {
+      display: block;
+      width: 85%;
+      max-width: 320px;
+      max-height: 390px;
+      object-fit: contain;
+      margin: 20px auto;
+    }
+
+    .shop-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 15px 28px;
+      background: var(--red);
+      color: var(--white);
+      border: 1px solid var(--red);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .shop-button:hover {
+      background: var(--white);
+      color: var(--bg);
+      border-color: var(--white);
+    }
+
+    .product-section,
+    .contact-section {
+      padding: 45px 20px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .product-section h2,
+    .contact-section h2 {
+      font-size: 24px;
+      letter-spacing: 2px;
+    }
+
+    .launch-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 10px auto 20px;
+      padding: 10px 14px;
+      border: 1px solid #444444;
+      color: #dddddd;
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+
+    .launch-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--red);
+      border-radius: 50%;
+    }
+
+    .price {
+      margin: 20px 0 10px;
+      color: var(--red);
+      font-size: 26px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .stock-note {
+      margin: 10px 0;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 2px;
+    }
+
+    .product-options {
+      max-width: 340px;
+      margin: 25px auto;
+      text-align: left;
+    }
+
+    .product-options label,
+    .order-form label {
+      display: block;
+      margin: 18px 0 8px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .product-options select,
+    .order-form input,
+    .order-form select {
+      width: 100%;
+      min-height: 48px;
+      padding: 14px;
+      background: var(--panel);
+      color: var(--white);
+      border: 1px solid #444444;
+      border-radius: 0;
+      font-size: 14px;
+    }
+
+    .order-button {
+      display: block;
+      max-width: 280px;
+      margin: 20px auto;
+    }
+
+    .order-form {
+      max-width: 400px;
+      margin: 35px auto;
+      padding: 24px 18px;
+      border: 1px solid var(--border);
+      text-align: left;
+    }
+
+    .order-form h2 {
+      font-size: 21px;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+
+    .order-form .description {
+      text-align: center;
+    }
+
+    .order-submit {
+      width: 100%;
+      margin-top: 24px;
+    }
+
+    #form-error {
+      color: var(--red);
+      font-size: 13px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    #order-message {
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .contact-section .description {
+      max-width: 340px;
+      margin: 15px auto;
+    }
+
+    footer {
+      padding: 22px 15px;
+      color: #777777;
+      font-size: 11px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 42px 16px;
+      }
+
+      .menu {
+        gap: 16px;
+      }
+
+      .product-section,
+      .contact-section {
+        padding: 38px 16px;
+      }
+
+      .order-form {
+        padding: 20px 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="announcement">
+    SDL STREETWEAR — FIRST DROP COMING SOON
+  </div>
+
+  <div class="language-bar">
+    <a href="#home">EN</a>
+    <span>|</span>
+    <a href="#home">FR</a>
+    <span>|</span>
+    <a href="#home">AR</a>
+  </div>
+
+  <header>
+    <div class="logo">SDL</div>
+    <p>STREETWEAR</p>
+
+    <nav class="menu">
+      <a href="#home">HOME</a>
+      <a href="#collection">COLLECTION</a>
+      <a href="#contact">CONTACT</a>
+    </nav>
+  </header>
+
+  <main id="home" class="hero">
+    <p class="label">NEW COLLECTION</p>
+
+    <img
+      src="https://i.ibb.co/MxdXRMXh/085-C9-D42-4237-42-C8-B6-EC-1-C53-F0537547.png"
+      alt="SDL Streetwear Hoodie"
+      class="product-image"
+    >
+
+    <h1>WEAR YOUR<br>IDENTITY.</h1>
+
+    <p class="description">
+      Discover our latest streetwear.<br>
+      Made to stand out.
+    </p>
+
+    <a class="shop-button" href="#collection">
+      DISCOVER THE COLLECTION
+    </a>
+  </main>
+
+  <section id="collection" class="product-section">
+    <p class="label">SDL EXCLUSIVE</p>
+
+    <div class="launch-badge">
+      <span class="launch-dot"></span>
+      FIRST DROP — COMING SOON
+    </div>
+
+    <h2>SDL SIGNATURE HOODIE</h2>
+
+    <p class="description">
+      Premium streetwear. Designed to stand out.
+    </p>
+
+    <p class="price">4500 DA</p>
+    <p class="stock-note">AVAILABLE IN RED &amp; BLACK</p>
+
+    <div class="product-options">
+      <label for="color">CHOOSE YOUR COLOR</label>
+      <select id="color">
+        <option value="Red">Red</option>
+        <option value="Black">Black</option>
+      </select>
+
+      <label for="size">CHOOSE YOUR SIZE</label>
+      <select id="size">
+        <option value="S">Size S</option>
+        <option value="M">Size M</option>
+        <option value="L">Size L</option>
+        <option value="XL">Size XL</option>
+      </select>
+    </div>
+
+    <a
+      class="shop-button order-button"
+      href="#order-form"
+      onclick="prepareOrder(); return false;"
+    >
+      ORDER NOW
+    </a>
+
+    <p id="order-message" aria-live="polite"></p>
+
+    <form id="order-form" class="order-form" onsubmit="sendOrder(event)">
+      <h2>COMPLETE YOUR ORDER</h2>
+
+      <p class="description">
+        SDL SIGNATURE HOODIE — 4500 DA
+      </p>
+
+      <label for="customer-name">FULL NAME</label>
+      <input
+        id="customer-name"
+        type="text"
+        placeholder="Your full name"
+        autocomplete="name"
+        required
+      >
+
+      <label for="customer-phone">PHONE NUMBER</label>
+      <input
+        id="customer-phone"
+        type="tel"
+        placeholder="05XXXXXXXX"
+        autocomplete="tel"
+        inputmode="tel"
+        required
+      >
+
+      <label for="order-color">CHOOSE COLOR</label>
+      <select id="order-color" required>
+        <option value="Red">Red</option>
+        <option value="Black">Black</option>
+      </select>
+
+      <label for="order-size">CHOOSE SIZE</label>
+      <select id="order-size" required>
+        <option value="S">S</option>
+        <option value="M">M</option>
+        <option value="L">L</option>
+        <option value="XL">XL</option>
+      </select>
+
+      <label for="delivery-type">DELIVERY METHOD</label>
+      <select id="delivery-type" required>
+        <option value="Home delivery">Home delivery</option>
+        <option value="Delivery office">Delivery office</option>
+      </select>
+
+      <label for="customer-wilaya">CHOOSE YOUR WILAYA</label>
+      <select id="customer-wilaya" required>
+        <option value="">Select your wilaya</option>
+        <option>01 - Adrar</option>
+        <option>02 - Chlef</option>
+        <option>03 - Laghouat</option>
+        <option>04 - Oum El Bouaghi</option>
+        <option>05 - Batna</option>
+        <option>06 - Béjaïa</option>
+        <option>07 - Biskra</option>
+        <option>08 - Béchar</option>
+        <option>09 - Blida</option>
+        <option>10 - Bouira</option>
+        <option>11 - Tamanrasset</option>
+        <option>12 - Tébessa</option>
+        <option>13 - Tlemcen</option>
+        <option>14 - Tiaret</option>
+        <option>15 - Tizi Ouzou</option>
+        <option>16 - Alger</option>
+        <option>17 - Djelfa</option>
+        <option>18 - Jijel</option>
+        <option>19 - Sétif</option>
+        <option>20 - Saïda</option>
+        <option>21 - Skikda</option>
+        <option>22 - Sidi Bel Abbès</option>
+        <option>23 - Annaba</option>
+        <option>24 - Guelma</option>
+        <option>25 - Constantine</option>
+        <option>26 - Médéa</option>
+        <option>27 - Mostaganem</option>
+        <option>28 - M'Sila</option>
+        <option>29 - Mascara</option>
+        <option>30 - Ouargla</option>
+        <option>31 - Oran</option>
+        <option>32 - El Bayadh</option>
+        <option>33 - Illizi</option>
+        <option>34 - Bordj Bou Arréridj</option>
+        <option>35 - Boumerdès</option>
+        <option>36 - El Tarf</option>
+        <option>37 - Tindouf</option>
+        <option>38 - Tissemsilt</option>
+        <option>39 - El Oued</option>
+        <option>40 - Khenchela</option>
+        <option>41 - Souk Ahras</option>
+        <option>42 - Tipaza</option>
+        <option>43 - Mila</option>
+        <option>44 - Aïn Defla</option>
+        <option>45 - Naâma</option>
+        <option>46 - Aïn Témouchent</option>
+        <option>47 - Ghardaïa</option>
+        <option>48 - Relizane</option>
+        <option>49 - Timimoun</option>
+        <option>50 - Bordj Badji Mokhtar</option>
+        <option>51 - Ouled Djellal</option>
+        <option>52 - Béni Abbès</option>
+        <option>53 - In Salah</option>
+        <option>54 - In Guezzam</option>
+        <option>55 - Touggourt</option>
+        <option>56 - Djanet</option>
+        <option>57 - El M'Ghair</option>
+        <option>58 - El Meniaa</option>
+      </select>
+
+      <button class="shop-button order-submit" type="submit">
+        CONFIRM ORDER
+      </button>
+
+      <p id="form-error" role="alert"></p>
+    </form>
+
+    <a
+      class="shop-button"
+      href="https://www.instagram.com/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      FOLLOW OUR JOURNEY
+    </a>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <p class="label">GET IN TOUCH</p>
+
+    <h2>BE PART OF SDL.</h2>
+
+    <p class="description">
+      Follow us for new drops, exclusive pieces
+      and updates from SDL Streetwear.
+    </p>
+
+    <a
+      class="shop-button"
+      href="https://www.instagram.com/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      FOLLOW ON INSTAGRAM
+    </a>
+  </section>
+
+  <footer>
+    © SDL STREETWEAR — ALL RIGHTS RESERVED
+  </footer>
+
+  <script>
+    const WHATSAPP_NUMBER = "213541394278";
+
+    function prepareOrder() {
+      document.getElementById("order-color").value =
+        document.getElementById("color").value;
+
+      document.getElementById("order-size").value =
+        document.getElementById("size").value;
+
+      document.getElementById("order-form").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    function sendOrder(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("customer-name").value.trim();
+      const phone = document.getElementById("customer-phone").value.trim();
+      const color = document.getElementById("order-color").value;
+      const size = document.getElementById("order-size").value;
+      const delivery = document.getElementById("delivery-type").value;
+      const wilaya = document.getElementById("customer-wilaya").value;
+      const error = document.getElementById("form-error");
+
+      error.textContent = "";
+
+      if (!name || !phone || !wilaya) {
+        error.textContent = "Please complete all required fields.";
+        return;
+      }
+
+      const digits = phone.replace(/[\s()+-]/g, "");
+
+      if (!/^\d{9,15}$/.test(digits)) {
+        error.textContent = "Please enter a valid phone number.";
+        return;
+      }
+
+      const message =
+        "SDL STREETWEAR - NEW ORDER\n" +
+        "Product: SDL Signature Hoodie\n" +
+        "Price: 4500 DA\n" +
+        "Name: " + name + "\n" +
+        "Customer phone: " + phone + "\n" +
+        "Color: " + color + "\n" +
+        "Size: " + size + "\n" +
+        "Delivery: " + delivery + "\n" +
+        "Wilaya: " + wilaya;
+
+      const url =
+        "https://wa.me/" + WHATSAPP_NUMBER +
+        "?text=" + encodeURIComponent(message);
+
+      window.location.href = url;
+    }
+  </script>
+
+</body>
+</html>
+
